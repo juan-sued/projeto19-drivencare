@@ -1,11 +1,11 @@
-import bookServices from "../services/bookServices.js";
+import consultsServices from '../services/consultsServices.js';
 
 async function create(req, res) {
   const { name, author } = req.body;
-  
-  const { id } = res.locals.user;
+
+  const { id } = res.locals.patient;
   try {
-    await bookServices.create({ name, author, userId: id });
+    await consultsServices.create({ name, author, patientId: id });
 
     return res.sendStatus(201);
   } catch (err) {

@@ -1,23 +1,23 @@
-import userRepositories from "../repositories/userRepositories.js";
+import patientRepositories from '../repositories/patientRepositories.js';
 
 async function authValidation(req, res, next) {
   const { authorization } = req.headers;
-  const token = authorization?.replace("Bearer ", "");
+  const token = authorization?.replace('Bearer ', '');
 
-  if (!token) return res.status(401).send("No token");
+  if (!token) return res.status(401).send('No token');
 
   try {
     const {
-      rows: [session],
-    } = await userRepositories.findSessionByToken(token);
-    if (!session) return res.status(401).send("Session not found");
+      rows: [session]
+    } = await patientRepositories.findSessionByToken(token);
+    if (!session) return res.status(401).send('Session not found');
 
     const {
-      rows: [user],
-    } = await userRepositories.findById(session.userId);
-    if (!user) return res.status(401).send("User not found");
+      rows: [patient]
+    } = await patientRepositories.findById(session.patientId);
+    if (!patient) return res.status(401).send('patient not found');
 
-    res.locals.user = user;
+    res.locals.patient = patient;
     next();
   } catch (err) {
     res.status(500).send(err.message);
