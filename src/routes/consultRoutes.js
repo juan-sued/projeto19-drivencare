@@ -1,16 +1,16 @@
-import { Router } from "express";
-import bookControllers from "../controllers/bookControllers.js";
-import authMiddleware from "../middlewares/authMiddleware.js";
-import { validateSchema } from "../middlewares/schemaValidationMiddleware.js";
-import { bookSchemma } from "../schemas/Book.js";
+import { Router } from 'express';
+import consultsController from '../controllers/consultsControllers.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
+import { validateSchema } from '../middlewares/schemaValidationMiddleware.js';
+import { consultSchema } from '../schemas/Consult.js';
 
-const bookRoutes = Router();
+const consultsRoutes = Router();
 
-bookRoutes.post(
-  "/",
+consultsRoutes.post(
+  '/',
   authMiddleware.authValidation,
-  validateSchema(bookSchemma),
-  bookControllers.create
+  validateSchema(consultSchema),
+  consultsController.create
 );
 
-export default bookRoutes;
+export default consultsRoutes;
