@@ -14,7 +14,7 @@ async function create(req, res) {
       crm
     });
   } catch (err) {
-    return statusHelper.serverErrorResponse(res);
+    return statusHelper.serverErrorResponse(res, err);
   }
 }
 
@@ -27,7 +27,24 @@ async function signIn(req, res) {
   }
 }
 
+async function getDoctors(req, res) {
+  const { name, specialty, locality } = req.query;
+
+  try {
+    const { rows: doctors } = await doctorServices.getDoctors(res, {
+      name,
+      specialty,
+      locality
+    });
+
+    return res.status(200).send(doctors);
+  } catch {
+    return res.status(500).send('erro ao pegar doctors');
+  }
+}
+
 export default {
+  getDoctors,
   create,
   signIn
 };

@@ -36,7 +36,35 @@ async function findById(id) {
   );
 }
 
+async function findByLocality(locality) {
+  console.log;
+  return await connectionDb.query(
+    `SELECT * FROM doctors WHERE doctors.locality ILIKE $1;`,
+    [locality + '%']
+  );
+}
+async function findByName(name) {
+  return await connectionDb.query(
+    `SELECT * FROM doctors WHERE doctors.name ILIKE $1;`,
+    [name + '%']
+  );
+}
+async function findBySpaciality(specialty) {
+  return await connectionDb.query(
+    `SELECT * FROM doctors WHERE doctors.specialty ILIKE $1;`,
+    [specialty + '%']
+  );
+}
+
+async function findByAll() {
+  return await connectionDb.query(`SELECT * FROM doctors;`);
+}
+
 export default {
+  findBySpaciality,
+  findByAll,
+  findByName,
+  findByLocality,
   findByEmail,
   create,
   findById

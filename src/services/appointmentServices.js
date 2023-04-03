@@ -1,18 +1,14 @@
 import appointmentsRepositories from '../repositories/appointmentsRepositories.js';
-import * as errors from '../errors/statusHelper.js';
+import * as statusHelper from '../errors/statusHelper.js';
 async function create(res, { date_time, doctor_id, description, patient_id }) {
   const {
     rows: [appointment]
-  } = await appointmentsRepositories.findByTimestampAndDoctorId(
+  } = await appointmentsRepositories.findByTimestampAndDoctorId({
     date_time,
     doctor_id
-  );
-  if (appointment) return errors.conflictResponse(res, 'appointment');
+  });
 
-  const { rows: appointments } = await appointmentsRepositories.findById(13);
-  if (appointments) {
-    console.log(appointments[0].date_time.toLocaleString());
-  }
+  if (appointment) return statusHelper.conflictResponse(res, 'appointment');
 
   await appointmentsRepositories.create({
     date_time,
@@ -20,6 +16,8 @@ async function create(res, { date_time, doctor_id, description, patient_id }) {
     description,
     patient_id
   });
+
+  return statusHelper.createdResponse(res, 'appointment');
 }
 
 export default { create };

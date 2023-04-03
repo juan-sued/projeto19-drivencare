@@ -23,18 +23,20 @@ function badRequestResponse(response, text = STATUS_TEXT.BAD_REQUEST) {
   return response.status(STATUS_CODE.BAD_REQUEST).send(text);
 }
 
-function createdResponse(response, text = STATUS_TEXT.CREATED) {
-  return response.status(STATUS_CODE.CREATED).send(text);
+function createdResponse(response, text = '') {
+  return response
+    .status(STATUS_CODE.CREATED)
+    .send(text + ' ' + STATUS_TEXT.CREATED);
 }
 
 function okResponse(response, content = STATUS_TEXT.OK) {
   return response.status(STATUS_CODE.OK).send(content);
 }
 
-function serverErrorResponse(response) {
+function serverErrorResponse(response, err) {
   return response
     .status(STATUS_CODE.SERVER_ERROR)
-    .send(STATUS_TEXT.SERVER_ERROR);
+    .send(STATUS_TEXT.SERVER_ERROR + err);
 }
 function notAuthorizedResponse(response, text = '') {
   return response
