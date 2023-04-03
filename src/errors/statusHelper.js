@@ -15,7 +15,8 @@ const STATUS_TEXT = Object.freeze({
   CONFLICT: 'already exists',
   UNPROCESSABLE_ENTITY: 'unprocessable entity',
   NOT_FOUND: 'Not Found',
-  UNAUTHORIZED: 'Not Authorized'
+  UNAUTHORIZED: 'Not Authorized',
+  SERVER_ERROR: 'Intern error'
 });
 
 function badRequestResponse(response, text = STATUS_TEXT.BAD_REQUEST) {
@@ -26,14 +27,14 @@ function createdResponse(response, text = STATUS_TEXT.CREATED) {
   return response.status(STATUS_CODE.CREATED).send(text);
 }
 
-function okResponse(response, text = STATUS_TEXT.OK) {
-  return response.status(STATUS_CODE.OK).send(text);
+function okResponse(response, content = STATUS_TEXT.OK) {
+  return response.status(STATUS_CODE.OK).send(content);
 }
 
 function serverErrorResponse(response) {
   return response
     .status(STATUS_CODE.SERVER_ERROR)
-    .send('Erro interno do servidor!');
+    .send(STATUS_TEXT.SERVER_ERROR);
 }
 function notAuthorizedResponse(response, text = '') {
   return response

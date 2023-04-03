@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import patientRepositories from '../repositories/patientRepositories.js';
+import * as patientRepositories from '../repositories/patientRepositories.js';
 
-import * as errors from '../errors/errorHelper.js';
+import * as errors from '../errors/statusHelper.js';
 
-import * as jwtTokenServices from '..//services/jwtTokenServices.js';
+import * as jwtTokenServices from '../services/jwtTokenServices.js';
 
 async function create(res, { name, email, password }) {
   const { rowCount } = await patientRepositories.findByEmail(email);
