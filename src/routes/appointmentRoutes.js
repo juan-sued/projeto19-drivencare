@@ -13,4 +13,10 @@ appointmentsRoutes.post(
   appointmentsController.create
 );
 
+appointmentsRoutes.get(
+  '/appointments',
+  validateJwtTokenMiddleware,
+  appointmentsController.getAppointments
+);
+
 export default appointmentsRoutes;

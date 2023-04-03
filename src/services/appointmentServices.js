@@ -20,4 +20,22 @@ async function create(res, { date_time, doctor_id, description, patient_id }) {
   return statusHelper.createdResponse(res, 'appointment');
 }
 
-export default { create };
+async function getAppointments(res, { doctor_id }) {
+  let appointments = [];
+
+  if (doctor_id && !isNaN(doctor_id)) {
+    const { rows: appointmentsOfDB } =
+      await appointmentsRepositories.findByAllDaysOccupiedsOfDoctor({
+        doctor_id
+      });
+    appointments = appointmentsOfDB;
+  } else {
+    const { rows: appointmentsOfDB } =
+      await appointmentsRepositories.findByAll();
+    appointments = appointmentsOfDB;
+  }
+
+  return statusHelper.okResponse(res, appointments);
+}
+
+export default { create, getAppointments };

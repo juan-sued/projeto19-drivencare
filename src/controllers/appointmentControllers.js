@@ -16,4 +16,21 @@ async function create(req, res) {
   }
 }
 
-export default { create };
+async function getAppointments(req, res) {
+  const { doctor_id } = req.query;
+
+  try {
+    const { rows: appointments } = await appointmentsServices.getAppointments(
+      res,
+      {
+        doctor_id
+      }
+    );
+
+    return res.status(200).send(appointments);
+  } catch {
+    return res.status(500).send('erro ao pegar appointments');
+  }
+}
+
+export default { create, getAppointments };
