@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import consultRoutes from './consultRoutes.js';
+import appointmentRoutes from './appointmentRoutes.js';
+import doctorRoutes from './doctorsRoutes.js';
 import patientRoutes from './patientRoutes.js';
 
 const routes = Router();
 
-routes.use([patientRoutes, consultRoutes]);
+routes.use([patientRoutes, doctorRoutes, appointmentRoutes]);
 
 export default routes;

@@ -1,4 +1,4 @@
-import * as errors from '../errors/errorHelper.js';
+import * as errors from '../errors/statusHelper.js';
 import patientServices from '../services/patientServices.js';
 
 async function create(req, res) {

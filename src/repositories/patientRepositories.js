@@ -28,8 +28,4 @@ async function findById(id) {
   );
 }
 
-export default {
-  findByEmail,
-  create,
-  findById
-};
+export { findByEmail, create, findById };
